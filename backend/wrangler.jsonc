@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "blog",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-04-28",
+  "vars": {
+    "DATABASE_URL": "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNDRmNDliM2ItM2VmYi00ZjNiLTgzZDctZThlY2RkODdkYTM5IiwidGVuYW50X2lkIjoiOTliMWQwMzVkZGEzNzJiMWVjMTJiMWI4MmJlMGQxYjc5NTdhZTc4OTk0YjFmYmNlODMyOGFiZjcyMTdmMWYxNSIsImludGVybmFsX3NlY3JldCI6ImE3OTczMDQ4LTUzZjQtNDFmYi04ZjgyLWJlY2M5ZTBmODZjYyJ9.OR4FSV7ERwE8iByyyVh1rO3Ed_yp5Uyq6Zqhz_f3dH4",
+    // (truncated your key for security — keep it safe!)
+    "JWT_SECRET": "JWT_SECRET your SECRET key"
+  }
+  // Optional: You can also uncomment and configure the other parts if you need (kv_namespaces, r2_buckets, d1_databases, etc.)
+}
