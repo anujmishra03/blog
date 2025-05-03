@@ -1,6 +1,5 @@
-
-export const Blog = () =>{
+export const Blog= () =>{
     return <div>
-        blog
+        BLog
     </div>
 }

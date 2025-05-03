@@ -1,19 +1,17 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'; // Import Routes
-import './App.css';
-import { Signup } from './pages/Signup';  // Assuming you have a Signup component
-import { Signin } from './pages/Signin';  // Assuming you have a Signin component
-import { Blog } from './pages/Blog'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Signup } from './pages/Signup';
+import { Signin } from './pages/Signin';
+import { Blog } from './pages/Blog';
+
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} /> {/* Added Signin route */}
-          <Route path="/blog/:id" element ={<Blog/>}/>
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/blog/:id" element={<Blog />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
