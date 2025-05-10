@@ -19,27 +19,31 @@ export const userRouter = new Hono<{
   };
 }>();
 
-userRouter.post('/api/v1/user/signup', async (c) => {
+function createPrisma(c: any) {
+  return new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+}
+
+// POST /api/v1/user/signup
+userRouter.post('/signup', async (c) => {
   const body = await c.req.json();
   const parsed = signupInput.safeParse(body);
 
   if (!parsed.success) {
-    c.status(400); // Bad Request
+    c.status(400);
     return c.json({ msg: "Invalid input", errors: parsed.error.errors });
   }
 
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = createPrisma(c);
 
   try {
-    // Check if user already exists
     const existingUser = await prisma.user.findFirst({
       where: { Username: body.username }
     });
 
     if (existingUser) {
-      c.status(409); // Conflict
+      c.status(409);
       return c.json({ msg: "Username already taken" });
     }
 
@@ -62,12 +66,10 @@ userRouter.post('/api/v1/user/signup', async (c) => {
   }
 });
 
-userRouter.post('/api/v1/user/signin', async (c) => {
+// POST /api/v1/user/signin
+userRouter.post('/signin', async (c) => {
   const body = await c.req.json();
-
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate());
+  const prisma = createPrisma(c);
 
   try {
     const user = await prisma.user.findFirst({
@@ -77,14 +79,14 @@ userRouter.post('/api/v1/user/signin', async (c) => {
     });
 
     if (!user) {
-      c.status(401); // Unauthorized
+      c.status(401);
       return c.json({ msg: "Incorrect credentials" });
     }
 
     const isPasswordValid = await bcrypt.compare(body.password, user.password);
 
     if (!isPasswordValid) {
-      c.status(401); // Unauthorized
+      c.status(401);
       return c.json({ msg: "Incorrect credentials" });
     }
 
